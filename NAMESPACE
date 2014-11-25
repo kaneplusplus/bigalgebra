@@ -1,0 +1,10 @@
+import(methods)
+importFrom("bigmemory", "typeof")
+#S4 methods
+exportMethods("%*%")
+exportMethods("Arith")
+#Functions
+export("daxpy")
+export("dadd")
+useDynLib(bigalgebra)
+
