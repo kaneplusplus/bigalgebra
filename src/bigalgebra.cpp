@@ -10,6 +10,7 @@
 #define INT long long
 #else
 #include <R_ext/BLAS.h>
+#include <R_ext/Lapack.h>
 #define INT int
 #endif
 
@@ -25,6 +26,8 @@ extern "C"
                       SEXP BETA, SEXP C, SEXP LDC, SEXP A_isBM, SEXP B_isBM,
                       SEXP C_isBM, SEXP C_offset);
   SEXP daxpy_wrapper (SEXP N, SEXP A, SEXP X, SEXP Y, SEXP X_isBM);
+  SEXP dpotrf_wrapper(SEXP UPLO, SEXP N, SEXP A, SEXP LDA, SEXP INFO,
+                      SEXP A_isBM);
   SEXP dadd(SEXP N, SEXP ALPHA, SEXP Y, SEXP Y_isBM, SEXP SIGN, SEXP ALPHA_LHS);
 
 #ifdef __cplusplus
@@ -156,6 +159,29 @@ daxpy_wrapper (SEXP N, SEXP A, SEXP X, SEXP Y, SEXP X_isBM)
   daxpy_ (&NN, pA, pX, &incx, pY, &incy);
 #endif
   unprotect(2);
+  return ans;
+}
+  
+SEXP dpotrf_wrapper(SEXP UPLO, SEXP N, SEXP A, SEXP LDA, SEXP INFO, SEXP A_isBM)
+{
+  SEXP ans;
+  const char *_UPLO = CHARACTER_VALUE(UPLO);
+  INT _N = (INT)* (DOUBLE_DATA(N));
+  double *_A = make_double_ptr(A, A_isBM);
+  INT _LDA = (INT) *(DOUBLE_DATA(LDA));
+  INT _INFO = (INT) *(DOUBLE_DATA(INFO));
+/* An example of an alternate C-blas interface (e.g., ACML) */
+#ifdef CBLAS
+  dpotrf_ (_UPLO, &_N, _A, &_LDA, &_INFO);
+#elif REFBLAS
+/* Standard Fortran interface without underscoring */
+  int8_dpotrf (_UPLO, &_N, _A, &_LDA, &_INFO);
+#else
+/* Standard Fortran interface from R's blas */
+  dpotrf_ (_UPLO, &_N, _A, &_LDA, &_INFO);
+#endif
+  PROTECT(ans = A);
+  unprotect(1);
   return ans;
 }
 

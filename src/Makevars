@@ -1,2 +1,14 @@
-PKG_CPPFLAGS=-I../include
+PKG_CPPFLAGS=-I. -I$(R_HOME)/include/R_ext/ $(R_XTRA_FFLAGS) -I../include
+PKG_LIBS=$(BLAS_LIBS) $(FLIBS)
+OBJECTS=bigalgebra.o
+
+# 64-bit reference BLAS ------------------------------------------
+ifeq "$(REFBLAS)" "1"
+  PKG_FFLAGS=-fdefault-integer-8 -fno-underscoring
+  PKG_FCLAGS=-fdefault-integer-8 -fno-underscoring
+  PKG_LIBS=-lgfortran
+  PKG_CPPFLAGS+=-DREFBLAS
+  OBJECTS+=$(subst .f,.o,$(wildcard refblas64/*.f))
+endif
+# ----------------------------------------------------------------
 
