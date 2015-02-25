@@ -1,5 +1,5 @@
 PKG_CPPFLAGS=-I. -I$(R_HOME)/include/R_ext/ $(R_XTRA_FFLAGS) -I../include
-PKG_LIBS=$(BLAS_LIBS) $(FLIBS)
+PKG_LIBS=$(BLAS_LIBS) $(FLIBS) $(R_HOME)/modules/lapack.so
 OBJECTS=bigalgebra.o
 
 # 64-bit reference BLAS ------------------------------------------
