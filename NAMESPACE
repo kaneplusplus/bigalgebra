@@ -1,5 +1,7 @@
 import(methods)
 importFrom("bigmemory", "typeof")
+importFrom("bigmemory", "filebacked.big.matrix")
+importFrom("bigmemory", "deepcopy")
 #S4 methods
 exportMethods("%*%")
 exportMethods("Arith")
