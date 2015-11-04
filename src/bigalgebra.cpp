@@ -172,13 +172,13 @@ SEXP dpotrf_wrapper(SEXP UPLO, SEXP N, SEXP A, SEXP LDA, SEXP INFO, SEXP A_isBM)
   INT _INFO = (INT) *(DOUBLE_DATA(INFO));
 /* An example of an alternate C-blas interface (e.g., ACML) */
 #ifdef CBLAS
-  dpotrf_ (_UPLO, &_N, _A, &_LDA, &_INFO);
+//  dpotrf_ (_UPLO, &_N, _A, &_LDA, &_INFO);
 #elif REFBLAS
 /* Standard Fortran interface without underscoring */
-  int8_dpotrf (_UPLO, &_N, _A, &_LDA, &_INFO);
+//  int8_dpotrf (_UPLO, &_N, _A, &_LDA, &_INFO);
 #else
 /* Standard Fortran interface from R's blas */
-  dpotrf_ (_UPLO, &_N, _A, &_LDA, &_INFO);
+//  dpotrf_ (_UPLO, &_N, _A, &_LDA, &_INFO);
 #endif
   PROTECT(ans = A);
   unprotect(1);
