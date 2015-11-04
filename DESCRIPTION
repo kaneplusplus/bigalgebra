@@ -4,11 +4,14 @@ Date: 2015-10-21
 Title: BLAS Routines for Native R Matrices and 'big.matrix' objects
 Author: Michael J. Kane, Bryan Lewis, and John W. Emerson
 Maintainer: Michael J. Kane <bigmemoryauthors@gmail.com>
-Imports: methods
-Depends: bigmemory (>= 4.0.0)
+Imports:
+    methods
+Depends:
+    bigmemory (>= 4.0.0)
 LinkingTo: bigmemory, BH
 Description: Arithmetic functions for R matrix and big.matrix objects.
 License: LGPL-3 | Apache License 2.0
 Copyright: (C) 2015 Michael J. Kane, Bryan Lewis, and John W. Emerson
 URL: http://www.bigmemory.org
 LazyLoad: yes
+RoxygenNote: 5.0.0

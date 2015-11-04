@@ -1,3 +1,6 @@
+#' @useDynLib bigalgebra
+#' @import methods
+#' @importFrom bigmemory typeof filebacked.big.matrix deepcopy
 
 is_transposed = function( tcode )
 {
@@ -39,6 +42,7 @@ dcopy = function(N=NULL, X, INCX=1, Y, INCY=1)
 
 # Add a scalar to each element of a matrix
 # Y := Y+SIGN*ALPHA 
+#' @export
 dadd = function(Y, ALPHA, SIGN=1, ALPHA_LHS=1)
 {
   if (!is.numeric(ALPHA) || length(ALPHA) != 1)
@@ -57,6 +61,7 @@ dadd = function(Y, ALPHA, SIGN=1, ALPHA_LHS=1)
 
 # Add two matrices.
 # Y := ALPHA * X + Y
+#' @export
 daxpy = function(N=NULL, ALPHA=1, X, INCX=1, Y, INCY=1)
 {
   X.is.bm = check_matrix(X)
