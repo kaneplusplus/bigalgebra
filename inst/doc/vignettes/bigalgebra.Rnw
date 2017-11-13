@@ -63,6 +63,7 @@
 \author{Michael J. Kane, John W. Emerson, and Bryan W. Lewis} 
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 \maketitle
 \thispagestyle{empty}
 
@@ -229,7 +230,7 @@ function to avoid explicitly forming the transponse of the (potentially large)
 > library("irlba")
 
 > # Define an efficent matrix/transpose product:
-> matmul <- function(A, x, transpose=FALSE)
+> mult <- function(A, x, transpose=FALSE)
 + {
 +   if(transpose)
 +     return(t( t(x) %*% A))    # i.e., t(A) %*% x
@@ -243,10 +244,10 @@ function to avoid explicitly forming the transponse of the (potentially large)
 > a  <- as.big.matrix(A)
 
 # Compute with irlba using a big.matrix:
-> La <- irlba(a, nu=2, nv=2, matmul=matmul)
+> La <- irlba(a, nu=2, nv=2, mult=mult)
 
 # Compute with irlba using a standard matrix:
-> LA <-irlba(A, nu=2, nv=2, matmul=matmul)
+> LA <-irlba(A, nu=2, nv=2, mult=mult)
 
 # Compute with svd using a standard matrix:
 > S  <- svd(A, nu=2, nv=2)
@@ -259,7 +260,7 @@ function to avoid explicitly forming the transponse of the (potentially large)
 \end{lstlisting}
 Note that the singular vectors are unique up to sign (that is, they may have
 different signs between the answers). Also note that we could use the same
-matmul function with both {\tt big.matrix} and standard matrix arguments.
+mult function with both {\tt big.matrix} and standard matrix arguments.
 
 This simple example can be used to efficiently compute a few singular values
 and vectors of very large {\tt big.matrix} objects.
